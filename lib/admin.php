@@ -1,17 +1,16 @@
 <?php
 
-class WPE_PluginAdmin extends WPE_Plugin {
+class MyPluginAdmin extends MyPlugin {
 
 	private $url;
 
-    private $options_slug = 'wpe_plugin_options';
+    private $options_slug = 'my_plugin_options';
 
     protected $options_page = '';
 
     protected $title = '';
 
-	public static function get_instance()
-    {
+	public static function get_instance() {
         static $instance = null;
 
         if ( null === $instance ) {
@@ -21,26 +20,24 @@ class WPE_PluginAdmin extends WPE_Plugin {
         return $instance;
     }
 
-    private function __clone(){
-    }
+    private function __clone(){}
 
-    private function __wakeup(){
-    }
+    private function __wakeup(){}
 
 	protected function __construct() {
 
-		parent::get_instance();
+		parent::__construct();
 
         // Maybe Include CMB2
         $this->maybe_include_cmb2();
 
-        $this->title = __( 'WPE Plugin', 'wpengine-plugin' );
+        $this->title = __( 'My Plugin', 'my-plugin' );
 
-        // Uncomment these lines to create an Options page for the plugin
-        // add_action( 'admin_init', array( $this, 'init' ) );
-        // add_action( 'admin_menu', array( $this, 'add_options_page' ) );
-        // add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ), 15 );
-        // add_action( 'cmb2_init',  array( $this, 'add_options_metaboxes' ) );
+        // Create an options page for the plugin
+        add_action( 'admin_init', array( $this, 'init' ) );
+        add_action( 'admin_menu', array( $this, 'add_options_page' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ), 15 );
+        add_action( 'cmb2_init',  array( $this, 'add_options_metaboxes' ) );
 
 	}
 
@@ -49,11 +46,8 @@ class WPE_PluginAdmin extends WPE_Plugin {
      * only if not already loaded
      */
     private function maybe_include_cmb2() {
-
-        global $wpe_plugin_path;
-
-        if ( ! class_exists( 'CMB2_Bootstrap_208' ) && file_exists( $wpe_plugin_path . '/inc/cmb2/init.php' ) ) {
-            require_once $wpe_plugin_path . '/inc/cmb2/init.php';
+        if ( ! class_exists( 'CMB2_Bootstrap_208' ) && file_exists( MY_PLUGIN_PATH . '/inc/cmb2/init.php' ) ) {
+            require_once MY_PLUGIN_PATH . '/inc/cmb2/init.php';
         }
     }
 
@@ -93,7 +87,7 @@ class WPE_PluginAdmin extends WPE_Plugin {
         ?>
         <div class="wrap cmb2-options-page <?php echo $this->options_slug; ?>">
             <h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
-            <?php cmb2_metabox_form( $this->options_slug . 'analytics', $this->options_slug, array( 'cmb_styles' => false ) ); ?>
+            <?php cmb2_metabox_form( $this->options_slug . '-plugin', $this->options_slug, array( 'cmb_styles' => true ) ); ?>
         </div>
         <?php
     }
@@ -106,8 +100,8 @@ class WPE_PluginAdmin extends WPE_Plugin {
     public function add_options_metaboxes() {
 
         $cmb_options = new_cmb2_box( array(
-            'id'      => $this->options_slug . 'plugin',
-            'title'   => __( 'WP Engine Plugin Options', 'wpengine-plugin' ),
+            'id'      => $this->options_slug . '-plugin',
+            'title'   => __( 'My Plugin Options', 'my-plugin' ),
             'hookup'  => false,
             'show_on' => array(
                 'key'   => 'options-page',
@@ -116,3 +110,5 @@ class WPE_PluginAdmin extends WPE_Plugin {
         ) );
     }
 }
+
+MyPluginAdmin::get_instance();

@@ -1,6 +1,6 @@
 <?php
 
-class WPE_Plugin {
+class MyPlugin {
 
 	public static function get_instance() {
 
@@ -12,12 +12,12 @@ class WPE_Plugin {
         return $instance;
     }
 
-	private function __clone(){
-    }
+	private function __clone(){}
 
-    private function __wakeup(){
-    }
+    private function __wakeup(){}
 
 	protected function __construct() {
 	}
 }
+
+MyPlugin::get_instance();
