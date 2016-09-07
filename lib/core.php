@@ -1,6 +1,8 @@
 <?php
 
-class MyPlugin {
+namespace MyPlugin\Lib;
+
+class Core {
 
 	public static function get_instance() {
 
@@ -20,4 +22,4 @@ class MyPlugin {
 	}
 }
 
-MyPlugin::get_instance();
+Core::get_instance();

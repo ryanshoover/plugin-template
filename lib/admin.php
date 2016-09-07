@@ -1,6 +1,8 @@
 <?php
 
-class MyPluginAdmin extends MyPlugin {
+namespace MyPlugin\Lib;
+
+class Admin extends Core {
 
 	private $url;
 
@@ -111,4 +113,4 @@ class MyPluginAdmin extends MyPlugin {
     }
 }
 
-MyPluginAdmin::get_instance();
+Admin::get_instance();
