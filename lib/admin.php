@@ -48,7 +48,7 @@ class Admin extends Core {
      * only if not already loaded
      */
     private function maybe_include_cmb2() {
-        if ( ! class_exists( 'CMB2_Bootstrap_208' ) && file_exists( MY_PLUGIN_PATH . '/inc/cmb2/init.php' ) ) {
+        if ( file_exists( MY_PLUGIN_PATH . '/inc/cmb2/init.php' ) ) {
             require_once MY_PLUGIN_PATH . '/inc/cmb2/init.php';
         }
     }
