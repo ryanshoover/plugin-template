@@ -114,5 +114,3 @@ class Admin extends Core {
         ) );
     }
 }
-
-Admin::get_instance();

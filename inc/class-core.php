@@ -43,5 +43,3 @@ class Core {
 		$this->options_slug = SLUG . '-options';
 	}
 }
-
-Core::get_instance();
